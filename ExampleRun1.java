@@ -16,7 +16,7 @@ public class ExampleRun1 {
 		ProblemDomain problem = new SAT(1234);
 
 		//creates an ExampleHyperHeuristic object with a seed for the random number generator
-		HyperHeuristic hyper_heuristic_object = new GreedyVariableNeighborhoodSearch(5678);
+		HyperHeuristic hyper_heuristic_object = new GreedyRandomVNS(5678);
 
 		//we must load an instance within the problem domain, in this case we choose instance 2
 		problem.loadInstance(2);

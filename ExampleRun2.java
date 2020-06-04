@@ -9,6 +9,8 @@ import BinPacking.BinPacking;
 import FlowShop.FlowShop;
 import PersonnelScheduling.PersonnelScheduling;
 import SAT.SAT;
+import travelingSalesmanProblem.TSP;
+import VRP.VRP;
 
 /**
  * This class shows an example of how to test a number of hyper heuristics on a number of problem domains. 
@@ -37,9 +39,9 @@ public class ExampleRun2 {
 	private static HyperHeuristic loadHyperHeuristic(int index, long timeLimit, Random rng) {
 		HyperHeuristic h = null;
 		switch (index) {
-		//case 0: h = new ExampleHyperHeuristic3(rng.nextLong()); h.setTimeLimit(timeLimit); break;
-		case 0: h = new GreedyVariableNeighborhoodSearch(rng.nextLong()); h.setTimeLimit(timeLimit); break;
+		case 0: h = new GreedyRandomVNS(rng.nextLong()); h.setTimeLimit(timeLimit); break;
 		//case 1: h = new ExampleHyperHeuristic2(rng.nextLong()); h.setTimeLimit(timeLimit); break;
+		//case 2: h = new ExampleHyperHeuristic3(rng.nextLong()); h.setTimeLimit(timeLimit); break;
 		default: System.err.println("there is no hyper heuristic with this index");
 		System.exit(1);
 		}
@@ -58,6 +60,8 @@ public class ExampleRun2 {
 		case 1: p = new BinPacking(instanceseed); break;
 		case 2: p = new PersonnelScheduling(instanceseed); break;
 		case 3: p = new FlowShop(instanceseed); break;
+		case 4: p = new TSP(instanceseed); break;
+		case 5: p = new VRP(instanceseed); break;
 		default: System.err.println("there is no problem domain with this index");
 		System.exit(1);
 		}//end switch
@@ -67,7 +71,7 @@ public class ExampleRun2 {
 	public static void main(String[] args) {
 		//we first initialise the random number generator for this class
 		//it is useful to generate all of the random numbers from one seed, so that the experiments can be easily replicated
-		Random random_number_generator = new Random(12345);
+		Random random_number_generator = new Random(1234);
 		
 		//we set the number of hyper-heuristics involved in this example experiment, 
 		//and a time limit of 60 seconds for each hyper-heuristic run
@@ -76,18 +80,25 @@ public class ExampleRun2 {
 		
 		//this array is initialised with the indices of the instances that we wish to test the hyper-heuristics on
 		//for this example we arbitrarily choose the indices of five instances from each problem domain
-		int[][] instances_to_use = new int[4][];
+		int[][] instances_to_use = new int[6][];
 		int[] sat = {0, 1, 2, 3, 4};
-		int[] bp = {2, 3, 4, 5, 6};
-		int[] ps = {4, 5, 6, 7, 8};
-		int[] fs = {9, 0, 4, 2, 3};
+		int[] bp = {0, 1, 2, 3, 4};
+		int[] ps = {0, 1, 2, 3, 4};
+		int[] fs = {0, 1, 2, 3, 4};
+		//int[] bp = {2, 3, 4, 5, 6};
+		//int[] ps = {4, 5, 6, 7, 8};
+		//int[] fs = {9, 0, 4, 2, 3};
+		int[] tsp = {0, 1, 2, 3, 4};
+		int[] vrp = {0, 1, 2, 3, 4};
 		instances_to_use[0] = sat;
 		instances_to_use[1] = bp;
 		instances_to_use[2] = ps;
 		instances_to_use[3] = fs;
+		instances_to_use[4] = tsp;
+		instances_to_use[5] = vrp;
 		
 		//loop through all four problem domains
-		for (int problem_domain_index = 0; problem_domain_index < 4; problem_domain_index++) {
+		for (int problem_domain_index = 0; problem_domain_index < 6; problem_domain_index++) {
 			
 			//to ensure that all hyperheuristics begin from the same initial solution, we set a seed for each problem domain
 			long problem_domain_seed = random_number_generator.nextInt();
@@ -142,10 +153,11 @@ public class ExampleRun2 {
 					System.out.println("\t" + counter);
 					
 					
-					double[] fitnesstrace = hyper_heuristic_object.getFitnessTrace();
-					for (double f : fitnesstrace) {
-						System.out.print(f + " ");
-					}System.out.println();
+					//double[] fitnesstrace = hyper_heuristic_object.getFitnessTrace();
+					//for (double f : fitnesstrace) {
+						//System.out.print(f + " ");
+					//}
+					System.out.println();
 				}
 			}
 		}

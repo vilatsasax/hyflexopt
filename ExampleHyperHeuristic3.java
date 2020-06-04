@@ -41,7 +41,7 @@ public class ExampleHyperHeuristic3 extends HyperHeuristic {
 	 * @param problem the problem domain to be solved
 	 */
 	public void solve(ProblemDomain problem) {
-		//obtain arrays of the indices of the ow level heuristics heuristics which correspond to the different types.
+		//obtain arrays of the indices of the low level heuristics heuristics which correspond to the different types.
 		//the arrays will be set to 'null' if there are no low level heuristics of that type
 		int[] local_search_heuristics = problem.getHeuristicsOfType(ProblemDomain.HeuristicType.LOCAL_SEARCH);
 		int[] mutation_heuristics = problem.getHeuristicsOfType(ProblemDomain.HeuristicType.MUTATION);
